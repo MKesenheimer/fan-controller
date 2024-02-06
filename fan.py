@@ -2,7 +2,6 @@
 # Copyright Matthias Kesenheimer <m.kesenheimer@gmx.net>
 import os
 import time
-import signal
 import sys
 import RPi.GPIO as GPIO
 
