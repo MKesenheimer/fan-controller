@@ -11,6 +11,7 @@ arch:
   - i386
 map:
   - share:rw
-gpio: true
-privileged:
-  - SYS_RAWIO
+#gpio: true
+#privileged:
+#  - SYS_RAWIO
+full_access: true
