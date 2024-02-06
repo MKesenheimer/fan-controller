@@ -1,7 +1,7 @@
-name: "Froling Data Collector"
-description: "Collects data from Froling Systems"
-version: "0.2.0"
-slug: "froling_data_collector"
+name: "Fan Controller"
+description: "Control a fan via the Raspberry Pi's GPIO pins."
+version: "0.1.0"
+slug: "fan_controller"
 init: false
 arch:
   - aarch64
@@ -9,13 +9,8 @@ arch:
   - armhf
   - armv7
   - i386
-host_network: true
 map:
   - share:rw
-#  - homeassistant_config:rw
-#  - addon_config:rw
-#  - ssl:rw
-#  - addons:rw
-#  - backup:rw
-#  - media:rw
-#  - all_addon_config:rw
+gpio: true
+privileged:
+  - SYS_RAWIO

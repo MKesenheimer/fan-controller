@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y python3 python3
 
 # create and activate virtual environment
 # using final folder name to avoid path issues with packages
-RUN python3 -m venv /home/user/froling-data-collector/venv
-ENV PATH="/home/user/froling-data-collector/venv/bin:$PATH"
+RUN python3 -m venv /home/user/fan-controller/venv
+ENV PATH="/home/user/fan-controller/venv/bin:$PATH"
 
 # install requirements
 COPY requirements.txt .
@@ -17,20 +17,20 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 # runner image
 FROM ubuntu:latest AS runner
-LABEL Description="froling-data-collector"
+LABEL Description="fan-controller"
 
 RUN apt-get update && apt-get install --no-install-recommends -y python3 python3-venv && \
 	apt-get clean && rm -rf /var/lib/apt/lists/*
 
 #RUN mkdir -p /share/froling-data
 RUN useradd --create-home user
-RUN mkdir /home/user/froling-data-collector
-COPY --from=builder /home/user/froling-data-collector/venv /home/user/froling-data-collector/venv
-WORKDIR /home/user/froling-data-collector
+RUN mkdir /home/user/fan-controller
+COPY --from=builder /home/user/fan-controller/venv /home/user/fan-controller/venv
+WORKDIR /home/user/fan-controller
 COPY . .
-RUN chown -R user:user /home/user/froling-data-collector
+RUN chown -R user:user /home/user/fan-controller
 #RUN chown -R user:user /share/froling-data
-RUN chmod a+x /home/user/froling-data-collector/run.sh
+RUN chmod a+x /home/user/fan-controller/run.sh
 
 # change user
 #USER user
@@ -39,8 +39,8 @@ RUN chmod a+x /home/user/froling-data-collector/run.sh
 #ENV PYTHONUNBUFFERED=1
 
 # activate virtual environment
-ENV VIRTUAL_ENV=/home/user/froling-data-collector/venv
-ENV PATH="/home/user/froling-data-collector/venv/bin:$PATH"
+ENV VIRTUAL_ENV=/home/user/fan-controller/venv
+ENV PATH="/home/user/fan-controller/venv/bin:$PATH"
 
 #CMD ["/bin/bash"]
 CMD ["./run.sh"]

@@ -13,7 +13,7 @@ GPIO.setup(pin, GPIO.OUT)
 GPIO.setwarnings(False)
 p = GPIO.PWM(pin, 1000)
 p.start(0)
-file = open("/tmp/fan.out","w+") 
+file = open("/share/fan.out","w+") 
 file.seek(0)
 file.truncate()
 
